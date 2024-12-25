@@ -35,8 +35,8 @@ with tab2:
     # ... (Votre code pour la visualisation de l'évolution dans le temps)
 
 # Page 3 : Prétraitement des données
-st.title("Prétraitement des données")
-st.write("Dans cette section, nous allons effectuer un prétraitement des données pour ...")
+    st.title("Prétraitement des données")
+    st.write("Dans cette section, nous allons effectuer un prétraitement des données pour ...")
 # ... (Votre code de prétraitement)
 
 # Autres pages...
