@@ -25,8 +25,7 @@ pages = {
 }
 
 # Barre latérale avec des boutons radio pour chaque page
-st.sidebar.header("Choisis une page")
-selected_page = st.sidebar.radio("Page", list(pages.keys()))
+selected_page = st.sidebar.radio("Choisis une page", list(pages.keys()))
 
 # Appeler la fonction correspondant à la page sélectionnée
 pages[selected_page]()
