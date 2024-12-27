@@ -9,9 +9,6 @@ from page5 import page5
 from page6 import page6
 from page_intro import page_intro
 
-# Charger les pages
-#if 'page' not in st.session_state:
-#    st.session_state.page = page_intro
 
 # Sidebar
 pages = {
@@ -37,5 +34,5 @@ st.sidebar.write("""Auteurs :
 * Hao LA
 """)
 
-# Call the selected page function
-#pages[selected_page]()
+# Autres pages...
+
