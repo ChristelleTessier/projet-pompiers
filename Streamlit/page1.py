@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import os
 
 def page1():
     st.title("Présentation des données")
@@ -23,6 +24,12 @@ def page1():
         *   LFB Incident data from 2009 - 2017.xlsx
         *   LFB Incident data from 2018 onwards.csv
         """)
+        data = pd.read_excel("Data/info_incident.xlsx", header=1)
+        # Afficher le tableau
+        st.dataframe(data)
+
+        
+
 
     def show_mobilisation_page():
         st.markdown("""
