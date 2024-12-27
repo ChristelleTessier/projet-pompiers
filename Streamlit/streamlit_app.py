@@ -10,8 +10,8 @@ from page6 import page6
 from page_intro import page_intro
 
 # Charger les pages
-if 'page' not in st.session_state:
-    st.session_state.page = page_intro
+#if 'page' not in st.session_state:
+#    st.session_state.page = page_intro
 
 # Sidebar
 pages = {
@@ -24,10 +24,12 @@ pages = {
     "Conclusion et prespective": page6
 }
 
-selected_page = st.sidebar.selectbox("Menu", pages.keys())
+# Barre latérale avec des boutons radio pour chaque page
+st.sidebar.header("Choisis une page")
+selected_page = st.sidebar.radio("Page", list(pages.keys()))
 
-# Layout with Columns
-col1, col2, col3 = st.columns([1, 6, 1])
+# Appeler la fonction correspondant à la page sélectionnée
+pages[selected_page]()
 
 
 st.sidebar.write("""Auteurs :
@@ -37,4 +39,4 @@ st.sidebar.write("""Auteurs :
 """)
 
 # Call the selected page function
-pages[selected_page]()
+#pages[selected_page]()

@@ -1,4 +1,10 @@
 import streamlit as st
+import numpy as np
+import pandas as pd
 
 def page2():
-    st.write("test p2")
+    map_data = pd.DataFrame(
+    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+    columns=['lat', 'lon'])
+
+    st.map(map_data)
