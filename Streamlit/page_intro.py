@@ -1,4 +1,9 @@
 import streamlit as st
+import pandas as pd
+import geopandas as gpd
+import folium
+from folium.plugins import MarkerCluster
+
 
 def page_intro():
     col1, col2, col3 = st.columns([1, 6, 1])
@@ -12,6 +17,34 @@ def page_intro():
     st.write("Pour ce faire nous avons travaillé pendant 4 mois un projet. L’objectif de ce projet est d’estimer **les temps de réponse et de mobilisation** de la Brigade des Pompiers de Londres. La brigade des pompiers de Londres est le service d'incendie et de sauvetage le plus actif du Royaume-Uni  et l'une des plus grandes organisations de lutte contre l'incendie et de sauvetage au monde.")
 
     st.write("Pour  présenter ce projet nous avons créer une application streamlit qui présente les différentes étapes de notre travail.")
+
+    # Charger les données
+    df = pd.read_csv("Data/Data0/LFB_incident_et_mobilisation_data.csv")
+    data = df[['IncidentNumber', 'Latitude', 'Longitude']].dropna(subset=['Latitude', 'Longitude']).copy()
+    gdf = gpd.GeoDataFrame(data, geometry=gpd.points_from_xy(data.Longitude, data.Latitude))
+
+    # Créer une fonction pour générer la carte
+    def create_map():
+        # Créer une carte centrée sur la zone d'intérêt
+        m = folium.Map(location=[51.5, -0.1], zoom_start=10)
+
+        # Ajouter un cluster de marqueurs
+        marker_cluster = MarkerCluster().add_to(m)
+
+        # Ajouter les points à la carte avec une couleur par station
+        for index, row in gdf.iterrows():
+            folium.Marker(location=[row['Latitude'], row['Longitude']],
+                     icon=folium.Icon(color='blue')).add_to(marker_cluster)
+
+        return m
+
+    # Titre de l'application
+    st.title("Carte de Situation des Incidents")
+
+    # Afficher la carte
+    folium_static(create_map())
+
+
 
     col1, col2, col3 = st.columns([1, 6, 1])
     with col2:

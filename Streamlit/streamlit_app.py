@@ -34,5 +34,3 @@ st.sidebar.write("""Auteurs :
 * Hao LA
 """)
 
-# Autres pages...
-
