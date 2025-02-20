@@ -6,24 +6,19 @@ from streamlit_folium import folium_static
 
 @st.cache_data
 def charger_donnees():
-    # Chargement des données
-    df = pd.read_csv(r"C:\Users\33663\Desktop\Projet pompiers github\projet-pompiers\Data\ModelingDataset.csv", low_memory=False)
-    df2 = pd.read_csv(r"C:\Users\33663\Desktop\Projet pompiers github\projet-pompiers\Data\Data0\LFB incident et mobilisation data.csv", low_memory=False)
+    url = "https://drive.google.com/file/d/1-BjFCk7Q5b3hAn_oWEvuB1wa0LVJ4d8B/export?format=csv"
+    df = pd.read_csv(url, low_memory=False)
 
-    # Fusion des deux DataFrames sur 'IncidentNumber'
+    url = "https://drive.google.com/file/d/1-9jQORrkPiSvLwxLwBuX9YqCKq98_yJw/export?format=csv"
+    df2 = pd.read_csv(url, low_memory=False)
+
     df_merged = pd.merge(df, df2, on='IncidentNumber', how='inner')
-
-    # Filtrer pour l'année 2024
     df_2024 = df_merged[df_merged['CalYear_x'] == 2024]
+    df_2024 = df_2024[['IncGeo_BoroughName', 'ResponseTimeBinary', 'inner', 'Latitude', 'Longitude']]
 
-    # Select the desired columns and create df_carte
-    df_2024 = df_2024[['IncGeo_BoroughName','ResponseTimeBinary', 'inner', 'Latitude', 'Longitude']]
-
-    station = pd.read_csv(r'C:\Users\33663\Desktop\Projet pompiers github\projet-pompiers\Data\FireStationInfo_2.csv',sep = ";", low_memory=False)
-    # Sélection des colonnes souhaitées
+    url = "https://drive.google.com/file/d/1p3GJaRpEvPZzRP3PbjxB4zdQpVyNnHnG/export?format=csv"
+    station = pd.read_csv(url, low_memory=False)
     station = station[["Station name", "Latitude", "Longitude"]]
-
-    # Conversion en majuscules de la colonne "Station name"
     station["Station name"] = station["Station name"].str.upper()
 
     return df_2024, station
